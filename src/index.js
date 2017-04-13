@@ -116,12 +116,16 @@ export default function createScrollingComponent(WrappedComponent) {
       const box = { x, y, w, h };
       const coords = { x: evt.clientX, y: evt.clientY };
 
+      console.log('-----', box, coords);
+
       // calculate strength
       this.scaleX = this.props.horizontalStrength(box, coords);
       this.scaleY = this.props.verticalStrength(box, coords);
 
       // start scrolling if we need to
-      if (!this.frame && (this.scaleX || this.scaleY)) this.startScrolling();
+      if (!this.frame && (this.scaleX || this.scaleY)) {
+        this.startScrolling();
+      }
     }, 100, { trailing: false })
 
     startScrolling() {
@@ -191,6 +195,9 @@ export default function createScrollingComponent(WrappedComponent) {
         verticalStrength,
         horizontalStrength,
         onScrollChange,
+        startY,
+        endY,
+        currentY,
 
         ...props,
       } = this.props;
